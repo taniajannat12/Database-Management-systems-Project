@@ -58,7 +58,9 @@ To get a local copy up and running, follow these steps:
 
 1. **Clone the repository:**
    ```bash
-   git clone [https://github.com/taniajannat12/Database-Management-systems-Project.git](https://github.com/taniajannat12/Database-Management-systems-Project.git) Developed By
-Jannatul Ferdous Tania ( Department of Computer Science & Engineering )
+   git clone [https://github.com/taniajannat12/Database-Management-systems-Project.git](https://github.com/taniajannat12/Database-Management-systems-Project.git)
 
+Devloped By:
+Jannatul Ferdous Tania 
+( Department of Computer Science & Engineering )
 Database Management Systems Project
