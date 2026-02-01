@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Order Placed Successfully!</h2>
+<p>Order ID: {{ order.id }}</p>
+<p>Total Paid: ${{ order.total_price }}</p>
+<a href="{% url 'skin' %}">Continue Shopping</a>
+{% endblock %}

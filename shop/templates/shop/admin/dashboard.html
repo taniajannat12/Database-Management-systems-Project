@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container">
+            <span class="navbar-brand">GlowCare Admin</span>
+            <div>
+                <a href="/manage/products/" class="btn btn-outline-light me-2">Products</a>
+                <a href="/manage/orders/" class="btn btn-outline-light me-2">Orders</a>
+                <a href="/" class="btn btn-outline-light">Website</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h2>Admin Dashboard</h2>
+        
+        <div class="row mt-4">
+            <div class="col-md-3">
+                <div class="card text-white bg-primary">
+                    <div class="card-body">
+                        <h5>Total Products</h5>
+                        <h3>{{ total_products }}</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-white bg-success">
+                    <div class="card-body">
+                        <h5>Total Orders</h5>
+                        <h3>{{ total_orders }}</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-white bg-warning">
+                    <div class="card-body">
+                        <h5>Total Sales</h5>
+                        <h3>${{ total_sales }}</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-white bg-info">
+                    <div class="card-body">
+                        <h5>Total Users</h5>
+                        <h3>{{ total_users }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Quick Actions</h5>
+                    </div>
+                    <div class="card-body">
+                        <a href="/manage/products/add/" class="btn btn-success mb-2">Add New Product</a><br>
+                        <a href="/manage/products/" class="btn btn-primary mb-2">Manage Products</a><br>
+                        <a href="/manage/orders/" class="btn btn-info">View Orders</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+<div class="card">
+    <div class="card-header">
+        <h5>User Activities</h5>
+    </div>
+    <div class="card-body">
+        <a href="/manage/user-activities/" class="btn btn-info">
+            📊 View User Activities
+        </a>
+        <p class="mt-2 text-muted">See user registrations, contact messages, and activities</p>
+    </div>
+</div>
+</body>
+</html>

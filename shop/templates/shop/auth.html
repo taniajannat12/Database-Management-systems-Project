@@ -1,0 +1,50 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5" style="max-width: 500px;">
+    <h2 class="text-center mb-4">
+        {% if form_type == 'login' %}
+            Login to MyGlowCare
+        {% else %}
+            Create an Account
+        {% endif %}
+    </h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label class="form-label">Username</label>
+            <input type="text" name="username" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Password</label>
+            <input type="password" name="password" class="form-control" required>
+        </div>
+
+        {% if form_type == 'signup' %}
+        <div class="mb-3">
+            <label class="form-label">Confirm Password</label>
+            <input type="password" name="password2" class="form-control" required>
+        </div>
+        {% endif %}
+
+        <button type="submit" class="btn btn-primary w-100">
+            {% if form_type == 'login' %}
+                Login
+            {% else %}
+                Sign Up
+            {% endif %}
+        </button>
+    </form>
+
+    <div class="text-center mt-3">
+        {% if form_type == 'login' %}
+            <p>Don't have an account? <a href="{% url 'signup' %}">Sign up</a></p>
+        {% else %}
+            <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

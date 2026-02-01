@@ -1,0 +1,337 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GlowCare Skin</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+body { margin:0; font-family: 'Poppins', sans-serif; background:#f5f5f5; }
+
+/* Header */
+header {
+  background:#fff;
+  padding:15px 5%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:2px solid #e60073;
+  position:sticky;
+  top:0;
+  z-index:1000;
+  box-shadow:0 2px 5px rgba(0,0,0,0.1);
+}
+.logo { font-size:1.8rem; font-weight:bold; color:#e60073; }
+nav { display:flex; gap:20px; }
+nav a { color:#222; padding:6px 10px; border-radius:6px; transition:all 0.3s; display:inline-block; }
+nav a:hover { background:#e60073; color:#fff; }
+
+/* Dropdown */
+.dropdown { position:relative; }
+.dropdown-content {
+  display:none;
+  position:absolute;
+  top:100%;
+  left:0;
+  background:#fff;
+  border-radius:6px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.2);
+  flex-direction:column;
+  z-index:100;
+}
+.dropdown-content a { padding:10px 15px; color:#222; white-space:nowrap; }
+.dropdown-content a:hover { background:#e60073; color:#fff; }
+.dropdown:hover .dropdown-content { display:flex; }
+
+/* Banner */
+.banner { width:100%; height:300px; background: linear-gradient(135deg,#9370DB,#8A2BE2); display:flex; justify-content:center; align-items:center; color:#fff; text-align:center; position:relative; }
+.banner h1 { font-size:2.8rem; margin:0; text-shadow:0 3px 10px rgba(0,0,0,0.2); }
+.banner p { font-size:1.1rem; margin-top:8px; }
+
+/* Filters */
+.filters { display:flex; justify-content:center; gap:15px; flex-wrap:wrap; padding:20px; }
+.filters select, .filters input { padding:10px 12px; border-radius:50px; border:1px solid #ccc; font-size:14px; outline:none; transition:all 0.3s; }
+.filters select:hover, .filters input:hover { border-color:#9370DB; }
+.filters input { width:200px; }
+
+/* Product Grid */
+.products { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:25px; padding:30px 5%; }
+.product { background:#fff; border-radius:15px; overflow:hidden; box-shadow:0 6px 18px rgba(0,0,0,0.08); transition:all 0.3s; display:flex; flex-direction:column; justify-content:space-between; opacity:0; transform:translateY(20px); }
+.product.show { opacity:1; transform:translateY(0); }
+.product:hover { transform:translateY(-5px) scale(1.03); box-shadow:0 12px 28px rgba(0,0,0,0.15); }
+.product img { width:100%; height:200px; object-fit:cover; border-bottom:1px solid #eee; }
+.product h3 { margin:15px 15px 5px; font-weight:600; font-size:1.1rem; }
+.product p { font-size:14px; color:#666; margin:0 15px; }
+.product span { font-weight:600; color:#9370DB; margin:10px 15px 0; display:block; }
+.add-to-cart { margin:15px; padding:10px 15px; background:#9370DB; color:#fff; border:none; border-radius:50px; cursor:pointer; font-weight:600; transition:all 0.3s; text-decoration:none; display:block; text-align:center; }
+.add-to-cart:hover { background:#7B68EE; transform:scale(1.05); }
+.add-to-cart:disabled { background:#6c757d; cursor:not-allowed; transform:none; }
+
+  .footer {
+    background: #222;
+    color: #fff;
+    padding: 40px 5% 20px;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  .footer-top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+  }
+  .footer .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .footer .brand img {
+    width: 50px;
+    height: 50px;
+  }
+  .footer .brand h3 {
+    margin: 0;
+    color: #e60073;
+  }
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  .footer-links a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .footer-links a:hover {
+    color: #e60073;
+  }
+  .social-icons a {
+    display: inline-block;
+    margin-right: 10px;
+  }
+  .social-icons img {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.3s;
+  }
+  .social-icons img:hover {
+    transform: scale(1.1);
+  }
+  .footer-bottom {
+    text-align: center;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.7);
+  }
+
+  @media(max-width: 768px){
+    .footer-top {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .footer-links {
+      justify-content: center;
+    }
+    .social-icons {
+      justify-content: center;
+    }
+  }
+/* No Products Message */
+.no-products { grid-column:1/-1; text-align:center; padding:40px; color:#666; }
+
+/* Stock Status */
+.stock-status { margin:5px 15px; font-size:12px; }
+.stock-in { color:#28a745; }
+.stock-low { color:#ffc107; }
+.stock-out { color:#dc3545; }
+
+/* Responsive */
+@media(max-width:768px){ 
+    nav { flex-direction:column; gap:10px; } 
+    .footer-top { flex-direction: column; align-items: center; text-align: center; } 
+    .footer-links { justify-content: center; } 
+    .social-icons { justify-content: center; }
+    .products { grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">GlowCare</div>
+  <nav>
+    <a href="/">Home</a>
+    <div class="dropdown">
+      <a href="#">Products</a>
+      <div class="dropdown-content">
+        <a href="/hair/">Hair</a>
+        <a href="/skin/">Skin</a>
+        <a href="/makeup/">Makeup</a>
+      </div>
+    </div>
+    <a href="/cart/">Cart</a>
+    
+    <!-- ✅ Orders Dropdown -->
+    <div class="dropdown">
+      <a href="#" class="dropbtn">Orders ▾</a>
+      <div class="dropdown-content">
+        <a href="/orders/">My Orders</a>
+        <a href="/checkout/">Checkout</a>
+      </div>
+    </div>
+    
+    {% if user.is_authenticated %}
+      <a href="/logout/">Logout ({{ user.first_name }})</a>
+    {% else %}
+      <a href="/login/">Login</a>
+      <a href="/signup/">Sign Up</a>
+    {% endif %}
+    
+    <a href="/contact/">Contact</a>
+  </nav>
+</header>
+
+<div class="banner">
+  <div>
+    <h1>Skin Care Essentials</h1>
+    <p>Healthy glowing skin starts here</p>
+  </div>
+</div>
+
+<div class="filters">
+  <input type="text" id="search-box" placeholder="Search products...">
+</div>
+
+<div class="products" id="product-list">
+  {% for product in products %}
+  <div class="product" data-category="skin">
+    
+    <!-- Skin Care Product Images -->
+    <!-- Product Image Section -->
+{% if product.image_url %}
+    <img src="{{ MEDIA_URL }}{{ product.image_url }}" alt="{{ product.name }}">
+{% else %}
+    <!-- Fallback to static images -->
+    {% if "vitamin c" in product.name.lower %}
+        <img src="{% static 'shop/images/vit.jpg' %}" alt="{{ product.name }}">
+    {% elif "sunscreen" in product.name.lower %}
+        <img src="{% static 'shop/images/sun.webp' %}" alt="{{ product.name }}">
+    {% elif "retinol" in product.name.lower %}
+        <img src="{% static 'shop/images/re.avif' %}" alt="{{ product.name }}">
+    {% elif "face wash" in product.name.lower %}
+        <img src="{% static 'shop/images/fa.jpg' %}" alt="{{ product.name }}">
+    {% elif "exfoliator" in product.name.lower %}
+        <img src="{% static 'shop/images/ex.jpg' %}" alt="{{ product.name }}">
+    {% elif "niacinamide" in product.name.lower %}
+        <img src="{% static 'shop/images/ni.webp' %}" alt="{{ product.name }}">
+    {% elif "eye cream" in product.name.lower %}
+        <img src="{% static 'shop/images/ey.jpeg' %}" alt="{{ product.name }}">
+    {% elif "clay face mask" in product.name.lower %}
+        <img src="{% static 'shop/images/cl.jpg' %}" alt="{{ product.name }}">
+    {% elif "toner" in product.name.lower %}
+        <img src="{% static 'shop/images/to.jpg' %}" alt="{{ product.name }}">
+    {% elif "acne" in product.name.lower %}
+        <img src="{% static 'shop/images/ac.png' %}" alt="{{ product.name }}">
+    {% elif "brightening essence" in product.name.lower %}
+        <img src="{% static 'shop/images/br.jpeg' %}" alt="{{ product.name }}">
+    {% elif "lip sleeping" in product.name.lower %}
+        <img src="{% static 'shop/images/li.jpg' %}" alt="{{ product.name }}">
+    {% elif "face oil" in product.name.lower %}
+        <img src="{% static 'shop/images/fa.avif' %}" alt="{{ product.name }}">
+    {% elif "bb cream" in product.name.lower %}
+        <img src="{% static 'shop/images/bb.jpg' %}" alt="{{ product.name }}">
+    {% else %}
+        <img src="{% static 'shop/images/hyp.avif' %}" alt="{{ product.name }}">
+    {% endif %}
+{% endif %}
+    <h3>{{ product.name }}</h3>
+    <p>{{ product.description }}</p>
+    <span>${{ product.price }}</span>
+    
+    <!-- Stock Status -->
+    <div class="stock-status {% if product.stock > 10 %}stock-in{% elif product.stock > 0 %}stock-low{% else %}stock-out{% endif %}">
+      {% if product.stock > 10 %}✅ In Stock{% elif product.stock > 0 %}⚠️ Low Stock{% else %}❌ Out of Stock{% endif %}
+    </div>
+    
+    {% if user.is_authenticated %}
+      {% if product.stock > 0 %}
+        <form method="post" action="/add-to-cart/{{ product.id }}/">
+          {% csrf_token %}
+          <button type="submit" class="add-to-cart">🛒 Add to Cart</button>
+        </form>
+      {% else %}
+        <button class="add-to-cart" disabled>Out of Stock</button>
+      {% endif %}
+    {% else %}
+      <a href="/login/?next={{ request.path }}" class="add-to-cart">🔐 Login to Add</a>
+    {% endif %}
+  </div>
+  {% empty %}
+  <div class="no-products">
+    <p>No skin care products available.</p>
+  </div>
+  {% endfor %}
+</div>
+
+<footer class="footer">
+  <div class="footer-top">
+    <div class="brand">
+      <div style="width:50px;height:50px;background:#9370DB;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:bold;">GC</div>
+      <h3>GlowCare</h3>
+    </div>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/hair/">Hair</a>
+      <a href="/skin/">Skin</a>
+      <a href="/makeup/">Makeup</a>
+      <a href="/orders/">Orders</a>
+      <a href="/login/">Login</a>
+      <a href="/contact/">Contact</a>
+    </div>
+    <div class="social-icons">
+      <a href="#"><img src="{% static 'shop/images/fb.jpg' %}" alt="Facebook" onerror="this.style.display='none'"></a>
+      <a href="#"><img src="{% static 'shop/images/in.jpg' %}" alt="Instagram" onerror="this.style.display='none'"></a>
+      <a href="#"><img src="{% static 'shop/images/go.jpg' %}" alt="Google" onerror="this.style.display='none'"></a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 GlowCare - All Rights Reserved</p>
+  </div>
+</footer>
+
+<script>
+// --- Filtering & Search ---
+const searchBox = document.getElementById("search-box");
+const products = document.querySelectorAll(".product");
+
+function filterProducts() {
+  const query = searchBox.value.toLowerCase();
+  
+  products.forEach(prod => {
+    const name = prod.querySelector('h3').innerText.toLowerCase();
+    const matchSearch = !query || name.includes(query);
+    
+    prod.style.display = matchSearch ? "flex" : "none";
+  });
+}
+
+// Event listeners
+if(searchBox) searchBox.addEventListener("input", filterProducts);
+
+// Animation
+window.addEventListener('load', () => {
+  products.forEach((p,i) => {
+    setTimeout(() => p.classList.add('show'), i * 100);
+  });
+});
+
+// Initialize
+filterProducts();
+</script>
+</body>
+</html>

@@ -1,0 +1,209 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GlowCare - Skin Products</title>
+  <style>
+    body { margin:0; font-family: 'Segoe UI', sans-serif; background:#f5f5f5; }
+
+    /* Header */
+    header {
+      background: #fff;
+      padding: 15px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #ddd;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo { font-size: 1.6rem; font-weight: bold; color: #e60073; }
+    nav { display: flex; gap: 20px; }
+    nav a { text-decoration: none; color: #222; font-weight: 500; }
+    nav a:hover { color: #e60073; }
+
+    /* Dropdown */
+    .dropdown { position: relative; }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background: #fff;
+      top: 100%;
+      left: 0;
+      min-width: 120px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      flex-direction: column;
+    }
+    .dropdown-content a {
+      padding: 10px;
+      display: block;
+      color: #222;
+      text-decoration: none;
+    }
+    .dropdown-content a:hover { background: #f5f5f5; color: #e60073; }
+    .dropdown:hover .dropdown-content { display: flex; flex-direction: column; }
+
+    /* Products Section */
+    .products-section { padding: 50px 5%; background: #fff0f5; }
+    .products-section h2 { color: #e60073; margin-bottom: 30px; text-align: center; }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill,minmax(200px,1fr));
+      gap: 20px;
+    }
+    .product-card {
+      background: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+    .product-card:hover { transform: translateY(-5px); }
+    .product-card img { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 10px; }
+    .product-card h4 { font-size: 1rem; margin-bottom: 8px; }
+    .price { color: #e60073; font-weight: bold; margin-bottom: 10px; }
+    .btn {
+      background: #e60073;
+      color: #fff;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+    .btn:hover { opacity: 0.9; }
+
+    /* Footer */
+    .footer {
+      background: #222;
+      color: #fff;
+      padding: 40px 5% 20px;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .footer-top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 30px;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      padding-bottom: 20px;
+      margin-bottom: 20px;
+    }
+    .footer .brand { display: flex; align-items: center; gap: 10px; }
+    .footer .brand img { width: 50px; height: 50px; }
+    .footer .brand h3 { margin:0; color: #e60073; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 15px; }
+    .footer-links a { color: #fff; text-decoration: none; transition: color 0.3s; }
+    .footer-links a:hover { color: #e60073; }
+    .social-icons a { display: inline-block; margin-right: 10px; }
+    .social-icons img { width: 30px; height: 30px; transition: transform 0.3s; }
+    .social-icons img:hover { transform: scale(1.1); }
+    .footer-bottom { text-align: center; font-size: 0.9rem; color: rgba(255,255,255,0.7); }
+    @media(max-width:768px){
+      .footer-top { flex-direction: column; align-items: center; text-align: center; }
+      .footer-links { justify-content: center; }
+      .social-icons { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+
+<header>
+  <div class="logo">GlowCare</div>
+  <nav>
+   <a href="{% url 'dashboard' %}">Home</a>
+<div class="dropdown">
+  <a href="{% url 'products' %}">Products</a>
+  <div class="dropdown-content">
+    <a href="{% url 'hair' %}">Hair</a>
+    <a href="{% url 'skin' %}">Skin</a>
+    <a href="{% url 'makeup' %}">Makeup</a>
+  </div>
+</div>
+<a href="{% url 'orders' %}">Orders</a>
+<a href="{% url 'login' %}">Login</a>
+
+  </nav>
+</header>
+
+<section class="products-section">
+  <h2>Skin Care Products</h2>
+  <div class="product-grid">
+    <div class="product-card">
+      <img src="https://via.placeholder.com/200x200.png?text=Moisturizer" alt="Moisturizer">
+      <h4>Moisturizing Cream</h4>
+      <p class="price">$20</p>
+      <button class="btn">Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="https://via.placeholder.com/200x200.png?text=Serum" alt="Serum">
+      <h4>Herbal Serum</h4>
+      <p class="price">$15</p>
+      <button class="btn">Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="https://via.placeholder.com/200x200.png?text=Toner" alt="Toner">
+      <h4>Face Toner</h4>
+      <p class="price">$12</p>
+      <button class="btn">Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="https://via.placeholder.com/200x200.png?text=Mask" alt="Mask">
+      <h4>Hydrating Mask</h4>
+      <p class="price">$18</p>
+      <button class="btn">Add to Cart</button>
+    </div>
+  </div>
+</section>
+{% for product in products %}
+<div class="product" data-category="{{ product.category.name }}">
+    <!-- existing product content -->
+</div>
+{% endfor %}
+
+<footer class="footer">
+  <div class="footer-top">
+    <div class="brand">
+      <img src="{% static 'shop/images/g.jpg' %}" alt="GlowCare Logo">
+      <h3>GlowCare</h3>
+    </div>
+    <div class="footer-links">
+      
+      <a href="{% url 'dashboard' %}">Home</a>
+      <a href="{% url 'products' %}">Products</a>
+      <a href="{% url 'skin' %}">Skincare</a>
+     <a href="{% url 'makeup' %}">Makeup</a>
+<a href="{% url 'orders' %}">Orders</a>
+
+<a href="{% url 'login' %}">Login</a>
+    </div>
+    <div class="social-icons">
+      <a href="#"><img src="{% static 'shop/images/fb.jpg' %}" alt="Facebook"></a>
+      <a href="#"><img src="{% static 'shop/images/in.jpg' %}" alt="Instagram"></a>
+      <a href="#"><img src="{% static 'shop/images/go.jpg' %}" alt="Google"></a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 GlowCare - All Rights Reserved</p>
+  </div>
+</footer>
+
+
+
+<script>
+  // Optional: Card hover animation or add-to-cart alert
+  const buttons = document.querySelectorAll('.btn');
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      alert('Product added to cart!');
+    });
+  });
+</script>
+
+</body>
+</html>

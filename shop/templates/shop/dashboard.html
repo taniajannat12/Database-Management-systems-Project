@@ -1,0 +1,826 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GlowCare - Home</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+body { margin:0; font-family: 'Poppins', sans-serif; background:#f5f5f5; }
+
+/* Header */
+header {
+  background:#fff;
+  padding:15px 5%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:2px solid #e60073;
+  position:sticky;
+  top:0;
+  z-index:1000;
+  box-shadow:0 2px 5px rgba(0,0,0,0.1);
+}
+.logo { font-size:1.8rem; font-weight:bold; color:#e60073; }
+nav { display:flex; gap:20px; }
+nav a { color:#222; padding:6px 10px; border-radius:6px; transition:all 0.3s; display:inline-block; }
+nav a:hover { background:#e60073; color:#fff; }
+
+/* Dropdown */
+.dropdown { position:relative; }
+.dropdown-content {
+  display:none;
+  position:absolute;
+  top:100%; /* dropdown below */
+  left:0;
+  background:#fff;
+  border-radius:6px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.2);
+  flex-direction:column;
+  z-index:100;
+}
+.dropdown-content a { padding:10px 15px; color:#222; white-space:nowrap; }
+.dropdown-content a:hover { background:#e60073; color:#fff; }
+.dropdown:hover .dropdown-content { display:flex; }
+
+/* Banner */
+.banner {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:#ffe6f0;
+  border-radius:12px;
+  overflow:hidden;
+  margin:20px 5%;
+  height:300px;
+  gap:20px;
+  padding:20px;
+}
+.banner img { width:45%; height:100%; object-fit:cover; border-radius:12px; display:none; }
+.banner img.active { display:block; }
+.banner .banner-text { width:50%; }
+.banner h1 { color:#e60073; font-size:2rem; margin-bottom:10px; }
+.banner p { font-size:1rem; margin-bottom:15px; }
+.btn-banner { background:linear-gradient(135deg,#ff007f,#ff66b3); border:none; padding:10px 25px; border-radius:25px; color:#fff; font-weight:600; transition:all 0.3s; }
+.btn-banner:hover { transform:scale(1.05); }
+
+
+
+
+
+
+    .our-products-slider {
+    padding: 40px 5%;
+    background: #fff0f5;
+  }
+  .our-products-slider h2 {
+    text-align: center;
+    color: #e60073;
+    margin-bottom: 20px;
+  }
+  .slider {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding-bottom: 10px;
+  }
+  .slider::-webkit-scrollbar { display: none; }
+  .slide {
+    flex: 0 0 auto;
+    text-align: center;
+  }
+  .slide img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid #e60073;
+    object-fit: cover;
+    margin-bottom: 8px;
+  }
+  .slide p {
+    font-weight: 500;
+  }
+
+
+
+
+
+
+
+/* Common Section Styles */
+section {
+  padding: 50px 5%;
+  border-radius: 10px;
+}
+section .container {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+section .image img {
+  width: 300px;   /* ছোট width */
+  height: 400px;  /* ছোট height */
+  border-radius: 10px;
+  object-fit: cover;
+  display: none;  /* auto-change slideshow এর জন্য */
+}
+section .image img.active {
+  display: block;
+}
+section .text {
+  max-width: 500px;
+}
+section .text h2 {
+  color: #e60073;
+  margin-bottom: 15px;
+}
+section .text p {
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+section .btn {
+  background: #e60073;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+section .btn:hover { opacity: 0.9; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  section .container {
+    flex-direction: column;
+  }
+  section .text {
+    text-align: center;
+  }
+}
+
+/* Featured Products */
+.featured-products { padding:40px 5%; background:#fff; }
+.featured-products h2 { text-align:center; color:#e60073; margin-bottom:20px; }
+.product-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:15px; }
+.product-card { background:#fff0f5; padding:10px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.1); transition:0.2s; }
+.product-card:hover { transform:translateY(-5px); }
+.product-card img { width:100%; height:120px; object-fit:cover; border-radius:8px; margin-bottom:5px; }
+.product-card h4 { font-size:0.95rem; margin-bottom:5px; }
+.price { color:#e60073; font-weight:bold; margin-bottom:8px; }
+.btn { background:#e60073; color:#fff; border:none; padding:6px 12px; border-radius:20px; font-size:0.9rem; }
+.btn:hover { opacity:0.9; }
+
+/* Responsive */
+@media(max-width:768px){
+  header { flex-direction:column; gap:10px; }
+  .banner { flex-direction:column; height:auto; text-align:center; }
+  .banner img, .banner .banner-text { width:100%; }
+  .banner h1{ font-size:1.6rem; }
+  .banner p{ font-size:0.9rem; }
+}
+
+
+
+
+
+  .featured-products {
+    padding: 50px 5%;
+    background: #fff;
+  }
+  .featured-products h2 {
+    text-align: center;
+    color: #e60073;
+    margin-bottom: 30px;
+  }
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  .product-card {
+    background: #fff0f5;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+  }
+  .product-card:hover { transform: translateY(-5px); }
+  .product-card img { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 10px; }
+  .product-card h4 { font-size: 1rem; margin-bottom: 8px; }
+  .price { color: #e60073; font-weight: bold; margin-bottom: 10px; }
+  .btn {
+    background: #e60073;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  .btn:hover { opacity: 0.9; }
+
+/* About Me Images */
+.about-me .image img {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  border: 5px solid #e60073;
+  object-fit: cover;
+  display: block; /* Ensure image shows */
+  margin: 0 auto; /* Center on small screens */
+}
+
+/* Beauty Products Images */
+.beauty-info .image img {
+  max-width: 400px;
+  width: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+  display: block; /* Ensure image shows */
+  margin: 0 auto;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .about-me .container,
+  .beauty-info .container {
+    flex-direction: column;
+    text-align: center;
+  }
+  .about-me .image,
+  .beauty-info .image {
+    margin-bottom: 20px;
+  }
+}
+
+  /* Reviews */
+  .reviews {
+    padding: 50px 5%;
+    background: #fff0f5;
+  }
+  .reviews h2 {
+    text-align: center;
+    color: #e60073;
+    margin-bottom: 30px;
+  }
+  .review-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  .review-card {
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    width: 200px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+  }
+  .review-card:hover { transform: translateY(-5px); }
+  .review-card img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+  }
+  .review-card p { font-style: italic; margin-bottom: 10px; }
+  .review-card h4 { color: #e60073; }
+
+  /* Fade-in Animation */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 1s ease;
+  }
+  .fade-in.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 900px) {
+    .beauty-info .container {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+
+  .footer {
+    background: #222;
+    color: #fff;
+    padding: 40px 5% 20px;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  .footer-top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+  }
+  .footer .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .footer .brand img {
+    width: 50px;
+    height: 50px;
+  }
+  .footer .brand h3 {
+    margin: 0;
+    color: #e60073;
+  }
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  .footer-links a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .footer-links a:hover {
+    color: #e60073;
+  }
+  .social-icons a {
+    display: inline-block;
+    margin-right: 10px;
+  }
+  .social-icons img {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.3s;
+  }
+  .social-icons img:hover {
+    transform: scale(1.1);
+  }
+  .footer-bottom {
+    text-align: center;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.7);
+  }
+
+  @media(max-width: 768px){
+    .footer-top {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .footer-links {
+      justify-content: center;
+    }
+    .social-icons {
+      justify-content: center;
+    }
+  }
+/* No Products Message */
+.no-products { grid-column:1/-1; text-align:center; padding:40px; color:#666; }
+
+/* Stock Status */
+.stock-status { margin:5px 15px; font-size:12px; }
+.stock-in { color:#28a745; }
+.stock-low { color:#ffc107; }
+.stock-out { color:#dc3545; }
+
+/* Responsive */
+@media(max-width:768px){ 
+    nav { flex-direction:column; gap:10px; } 
+    .footer-top { flex-direction: column; align-items: center; text-align: center; } 
+    .footer-links { justify-content: center; } 
+    .social-icons { justify-content: center; }
+    .products { grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); }
+}
+</style>
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<header>
+  <div class="logo">GlowCare</div>
+  <nav>
+    <a href="/">Home</a>
+    <div class="dropdown">
+      <a href="#">Products</a>
+      <div class="dropdown-content">
+        <a href="/hair/">Hair</a>
+        <a href="/skin/">Skin</a>
+        <a href="/makeup/">Makeup</a>
+      </div>
+    </div>
+    <a href="/orders/">Orders</a>
+    
+    <!-- ✅ FIXED: Login/Logout Condition -->
+    {% if user.is_authenticated %}
+    
+      <a href="/logout/">Logout ({{ user.first_name }})</a>
+    {% else %}
+      <a href="/login/">Login</a>
+      <a href="/signup/">Sign Up</a>
+    {% endif %}
+    
+    <a href="/contact/">Contact</a>
+  </nav>
+</header>
+  
+
+<!-- Banner -->
+<section class="banner">
+
+  <img src="{% static 'shop/images/ba4.jpg' %}" class="active" alt="Skin Care">
+  <img src="{% static 'shop/images/ba1.jpg' %}" alt="Skin Care">
+  <img src="{% static 'shop/images/ba.jpg' %}" alt="Skin Care">
+  <img src="{% static 'shop/images/ba2.jpg' %}"alt="Skin Care">
+    <img src="{% static 'shop/images/ba5.jpg' %}"alt="Skin Care">
+    <img src="{% static 'shop/images/ba6.jpg' %}"alt="Skin Care">
+   <img src="{% static 'shop/images/ba3.jpg' %}"alt="Skin Care">
+   <img src="{% static 'shop/images/ba7.webp' %}"alt="Skin Care">
+  <div class="banner-text">
+    <h1>Glow with Healthy Skin</h1>
+    <p>Discover our natural skincare products to keep your skin nourished and radiant every day.</p>
+    <button class="btn-banner">Explore Skin Care</button>
+  </div>
+</section>
+    
+<section class="our-products-slider">
+  <h2>Our Products</h2>
+  <div class="slider">
+    <div class="slide">
+      <img src="{% static 'shop/images/h1.jpg' %}" alt="Hair">
+      <p>Hair Care</p>
+    </div>
+    <div class="slide">
+      <img src="{% static 'shop/images/s1.jpg' %}" alt="Skin">
+      <p>Skin Care</p>
+    </div>
+    <div class="slide">
+      <img src="{% static 'shop/images/m1.jpg' %}" alt="Makeup">
+      <p>Makeup</p>
+    </div>
+    <div class="slide">
+      <img src="{% static 'shop/images/o1.jpg' %}" alt="Oils">
+      <p>Oils</p>
+    </div>
+    <div class="slide">
+      <img src="{% static 'shop/images/se1.jpg' %}" alt="Serums">
+      <p>Serums</p>
+    </div>
+    <div class="slide">
+      <img src="{% static 'shop/images/f1.jpg' %}" alt="Face Wash">
+      <p>Face Wash</p>
+    </div>
+    <div class="slide">
+      <img src="{% static 'shop/images/mo1.jpg' %}" alt="Moisturizer">
+      <p>Moisturizer</p>
+    </div>
+    <div class="slide">
+      <img src="{% static 'shop/images/su1.jpg' %}" alt="Sunscreen">
+      <p>Sunscreen</p>
+    </div>
+    <div class="slide">
+      <img src="{% static 'shop/images/ma1.jpg' %}" alt="Masks">
+      <p>Masks</p>
+    </div>
+    <div class="slide">
+      <img src="{% static 'shop/images/b1.jpg' %}" alt="Body Care">
+      <p>Body Care</p>
+    </div>
+    <div class="slide">
+      <img src="{% static 'shop/images/sh1.jpg' %}" alt="Shampoo">
+      <p>Shampoo</p>
+    </div>
+    <div class="slide">
+      <img src="{% static 'shop/images/c1.jpg' %}" alt="Conditioner">
+      <p>Conditioner</p>
+    </div>
+    <div class="slide">
+      <img src="{% static 'shop/images/e1.jpg' %}" alt="Exfoliator">
+      <p>Exfoliator</p>
+    </div>
+    <div class="slide">
+      <img src="{% static 'shop/images/bo1.jpg' %}" alt="Body Scrub">
+      <p>Body Scrub</p>
+    </div>
+    <div class="slide">
+      <img src="{% static 'shop/images/l1.jpg' %}" alt="Lip Care">
+      <p>Lip Care</p>
+    </div>
+  </div>
+</section>
+
+
+<section class="skincare-section">
+  <div class="container">
+    <div class="image">
+      <img src="{% static 'shop/images/sk1.jpg' %}" class="active" alt="Skincare">
+      <img src="{% static 'shop/images/sk2.jpg' %}" alt="Skincare">
+      <img src="{% static 'shop/images/sk3.jpg' %}" alt="Skincare">
+    </div>
+    <div class="text">
+      <h2>Skin Care</h2>
+      <p>Our skincare products are designed to nourish and rejuvenate your skin naturally. From moisturizers and serums to masks and toners, we ensure high-quality ingredients for healthy, glowing skin.</p>
+      <button class="btn">Explore Skin Care</button>
+    </div>
+  </div>
+</section>
+
+<section class="makeup-section" style="background:#fff0f5;">
+  <div class="container">
+    <div class="text">
+      <h2>Makeup Essentials</h2>
+      <p>Enhance your natural beauty with our premium makeup products. From foundation and lipsticks to eyeshadow palettes, we offer everything you need for a flawless look every day.</p>
+      <button class="btn">Explore Makeup</button>
+    </div>
+    <div class="image">
+      <img src="{% static 'shop/images/mk1.jpg' %}" class="active" alt="Makeup">
+      <img src="{% static 'shop/images/mk2.jpg' %}" alt="Makeup">
+      <img src="{% static 'shop/images/mk3.jpg' %}" alt="Makeup">
+    </div>
+  </div>
+</section>
+
+<section class="hair-section" style="background:#fff0f5;">
+  <div class="container">
+    <div class="image">
+      <img src="{% static 'shop/images/hk1.jpg' %}" class="active" alt="Hair Care">
+      <img src="{% static 'shop/images/hk2.jpg' %}" alt="Hair Care">
+      <img src="{% static 'shop/images/hk3.jpg' %}" alt="Hair Care">
+    </div>
+    <div class="text">
+      <h2>Hair Care</h2>
+      <p>Keep your hair healthy, shiny, and strong with our natural hair care products. From shampoos and conditioners to oils and serums, we provide the best for your hair.</p>
+      <button class="btn">Explore Hair Care</button>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- Featured Products -->
+
+
+<section class="featured-products">
+  <h2>GlowCare - Beauty</h2>
+  <div class="product-grid">
+    <div class="product-card">
+      <img src="{% static 'shop/images/mo2.jpg' %}" alt="Moisturizer">
+      <h4>Moisturizing Cream</h4>
+         <p class="price">$15</p>
+    
+    </div>
+    <div class="product-card">
+      <img src="{% static 'shop/images/hr1.jpg' %}" alt="Serum">
+      <h4>Herbal Serum</h4>
+      <p class="price">$15</p>
+      
+    </div>
+    <div class="product-card">
+      <img src="{% static 'shop/images/ft.jpg' %}" alt="Face Toner">
+      <h4>Face Toner</h4>
+      <p class="price">$12</p>
+     
+    </div>
+    <div class="product-card">
+      <img src="{% static 'shop/images/lt.jpg' %}" alt="Lipstick">
+      <h4>Matte Lipstick</h4>
+      <p class="price">$10</p>
+  
+    </div>
+    <div class="product-card">
+      <img src="{% static 'shop/images/dt.jpg' %}" alt="Clay Mask">
+      <h4>Detox Clay Mask</h4>
+      <p class="price">$22</p>
+ 
+    </div>
+    <div class="product-card">
+      <img src="{% static 'shop/images/v.jpg' %}" alt="Vitamin C Serum">
+      <h4>Vitamin C Serum</h4>
+      <p class="price">$25</p>
+   
+    </div>
+    <div class="product-card">
+      <img src="{% static 'shop/images/n.jpg' %}" alt="Night Cream">
+      <h4>Rejuvenating Night Cream</h4>
+      <p class="price">$30</p>
+      
+    </div>
+    <div class="product-card">
+      <img src="{% static 'shop/images/v.jpg' %}" alt="Eye Gel">
+      <h4>Refreshing Eye Gel</h4>
+      <p class="price">$18</p>
+    
+    </div>
+    <div class="product-card">
+      <img src="{% static 'shop/images/dl.jpg' %}" alt="Body Lotion">
+      <h4>Soothing Body Lotion</h4>
+      <p class="price">$20</p>
+
+    </div>
+    <div class="product-card">
+      <img src="{% static 'shop/images/hn.jpg' %}" alt="Hand Cream">
+      <h4>Nourishing Hand Cream</h4>
+      <p class="price">$12</p>
+
+    </div>
+    <div class="product-card">
+      <img src="{% static 'shop/images/hs.jpg' %}" alt="Shampoo">
+      <h4>Herbal Shampoo</h4>
+      <p class="price">$15</p>
+  
+    </div>
+    <div class="product-card">
+      <img src="{% static 'shop/images/ss.jpg' %}" alt="Conditioner">
+      <h4>Silky Smooth Conditioner</h4>
+      <p class="price">$15</p>
+    
+    </div>
+  </div>
+</section>
+
+
+
+<!-- About Me Section -->
+<section class="about-me">
+  <div class="container">
+    <div class="text left fade-in">
+      <h3>About Me</h3>
+      <p>Hello! I am <strong>Tania</strong>, a passionate beauty and skincare expert dedicated to helping everyone glow naturally. With years of experience, I focus on safe, effective, and natural solutions for hair, skin, and makeup.</p>
+    </div>
+
+    <div class="image fade-in">
+      <img src="{% static 'shop/images/ta.jpg' %}" alt="Tania">
+    </div>
+
+    <div class="text right fade-in">
+      <p>My mission is to guide you through the best products and routines for a confident and radiant look. Join me in exploring the world of beauty and self-care!</p>
+    </div>
+  </div>
+</section>
+
+<!-- Beauty Products Section -->
+<section class="beauty-info">
+  <div class="container fade-in">
+    <div class="image">
+      <img src="{% static 'shop/images/w.jpg' %}" alt="Beauty Products">
+    </div>
+    <div class="text">
+      <h2>Buy the Best Beauty and Cosmetics Products in Bangladesh</h2>
+      <p>Buying cosmetics and skincare products in Bangladesh is challenging due to traffic, crowded markets, and bargaining. Beauty Booth is your one-stop hub for all beauty needs.</p>
+      <p>Makeup and skincare products are applied to sensitive areas, so always choose safe and high-quality products.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- Reviews Section -->
+<section class="reviews">
+  <h2>What Our Customers Say</h2>
+  <div class="review-grid">
+    <div class="review-card fade-in">
+      <img src="{% static 'shop/images/cu1.jpg' %}" alt="User1">
+      <p>"Amazing moisturizer, my skin feels so soft!"</p>
+      <h4>- Sarahn K.</h4>
+    </div>
+    <div class="review-card fade-in">
+      <img src="{% static 'shop/images/cu2.jpg' %}" alt="User2">
+      <p>"Best serum I have ever used. Highly recommend."</p>
+      <h4>- nika R.</h4>
+    </div>
+    <div class="review-card fade-in">
+      <img src="{% static 'shop/images/cu3.jpg' %}" alt="User3">
+      <p>"Makeup products are just perfect for daily use."</p>
+      <h4>- riyam S.</h4>
+    </div>
+    <div class="review-card fade-in">
+      <img src="{% static 'shop/images/cu4.jpg' %}" alt="User4">
+      <p>"Excellent customer service and fast delivery!"</p>
+      <h4>- Rinat M.</h4>
+    </div>
+    <div class="review-card fade-in">
+      <img src="{% static 'shop/images/cu5.jpg' %}" alt="User5">
+      <p>"I love their wide variety of beauty products."</p>
+      <h4>- Tanvi H.</h4>
+    </div>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="footer-top">
+    <div class="brand">
+      <div style="width:50px;height:50px;background:#9370DB;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:bold;">GC</div>
+      <h3>GlowCare</h3>
+    </div>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/hair/">Hair</a>
+      <a href="/skin/">Skin</a>
+      <a href="/makeup/">Makeup</a>
+      <a href="/orders/">Orders</a>
+      <a href="/login/">Login</a>
+      <a href="/contact/">Contact</a>
+    </div>
+    <div class="social-icons">
+      <a href="#"><img src="{% static 'shop/images/fb.jpg' %}" alt="Facebook" onerror="this.style.display='none'"></a>
+      <a href="#"><img src="{% static 'shop/images/in.jpg' %}" alt="Instagram" onerror="this.style.display='none'"></a>
+      <a href="#"><img src="{% static 'shop/images/go.jpg' %}" alt="Google" onerror="this.style.display='none'"></a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 GlowCare - All Rights Reserved</p>
+  </div>
+</footer>
+
+
+<script>
+// ====== Banner Slideshow ======
+let currentBanner = 0;
+const bannerImages = document.querySelectorAll('.banner img');
+
+function showBannerSlide() {
+  bannerImages.forEach(img => img.classList.remove('active'));
+  bannerImages[currentBanner].classList.add('active');
+  currentBanner = (currentBanner + 1) % bannerImages.length;
+}
+setInterval(showBannerSlide, 1000); // change every 3 sec
+
+// ====== Section Slideshow (Skincare, Makeup, Hair) ======
+function setupSectionSlideshow(sectionClass, interval=3000) {
+  const section = document.querySelector(sectionClass);
+  if (!section) return; // skip if section not found
+  const images = section.querySelectorAll('.image img');
+  if (images.length === 0) return;
+
+  let current = 0;
+  setInterval(() => {
+    images.forEach(img => img.classList.remove('active'));
+    current = (current + 1) % images.length;
+    images[current].classList.add('active');
+  }, interval);
+}
+
+// Initialize slideshows
+setupSectionSlideshow('.skincare-section', 1000);
+setupSectionSlideshow('.makeup-section', 1000);
+setupSectionSlideshow('.hair-section', 1000);
+
+// ====== Products Slider Auto-Scroll ======
+const slider = document.querySelector('.slider');
+if (slider) {
+  let scrollAmount = 0;
+  setInterval(() => {
+    scrollAmount += 120; // adjust scroll speed
+    if (scrollAmount > slider.scrollWidth - slider.clientWidth) {
+      scrollAmount = 0;
+    }
+    slider.scrollTo({ left: scrollAmount, behavior: 'smooth' });
+  }, 2000);
+}
+
+// ====== Fade-In on Scroll ======
+const faders = document.querySelectorAll('.fade-in');
+
+function checkFadeIn() {
+  const triggerBottom = window.innerHeight * 0.85;
+
+  faders.forEach(fader => {
+    const faderTop = fader.getBoundingClientRect().top;
+    if (faderTop < triggerBottom) {
+      fader.classList.add('show');
+    }
+  });
+}
+
+// Trigger fade-in
+window.addEventListener('scroll', checkFadeIn);
+window.addEventListener('load', checkFadeIn);
+</script>
+
+
+</body>
+</html>

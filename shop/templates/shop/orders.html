@@ -1,0 +1,299 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Orders - GlowCare</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Header */
+
+/* Header */
+header {
+  background:#fff;
+  padding:15px 5%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:2px solid #e60073;
+  position:sticky;
+  top:0;
+  z-index:1000;
+  box-shadow:0 2px 5px rgba(0,0,0,0.1);
+}
+.logo { font-size:1.8rem; font-weight:bold; color:#e60073; }
+nav { display:flex; gap:20px; }
+nav a { color:#222; padding:6px 10px; border-radius:6px; transition:all 0.3s; display:inline-block; }
+nav a:hover { background:#e60073; color:#fff; }
+
+/* Dropdown */
+.dropdown { position:relative; }
+.dropdown-content {
+  display:none;
+  position:absolute;
+  top:100%;
+  left:0;
+  background:#fff;
+  border-radius:6px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.2);
+  flex-direction:column;
+  z-index:100;
+}
+.dropdown-content a { padding:10px 15px; color:#222; white-space:nowrap; }
+.dropdown-content a:hover { background:#e60073; color:#fff; }
+.dropdown:hover .dropdown-content { display:flex; }
+
+
+/* Orders Page */
+.orders-container { max-width:1000px; margin:30px auto; padding:0 20px; }
+.orders-header { text-align:center; margin-bottom:30px; }
+.orders-header h1 { color:#333; margin-bottom:10px; }
+
+.order-card { background:#fff; border-radius:15px; padding:25px; margin-bottom:20px; box-shadow:0 5px 15px rgba(0,0,0,0.08); border-left:5px solid #e60073; }
+.order-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; }
+.order-id { font-size:1.2rem; font-weight:600; color:#e60073; }
+.order-date { color:#666; font-size:0.9rem; }
+.order-status { padding:6px 12px; border-radius:20px; font-size:0.8rem; font-weight:600; text-transform:uppercase; }
+
+.status-pending { background:#fff3cd; color:#856404; }
+.status-confirmed { background:#d1ecf1; color:#0c5460; }
+.status-shipped { background:#d1ecf1; color:#0c5460; }
+.status-delivered { background:#d4edda; color:#155724; }
+.status-cancelled { background:#f8d7da; color:#721c24; }
+
+.order-details { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:15px; }
+.order-items { margin-bottom:15px; }
+.order-item { display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid #eee; }
+.order-total { text-align:right; font-size:1.1rem; font-weight:600; color:#e60073; margin-top:15px; }
+.order-address { margin-top:15px; padding:10px; background:#f9f9f9; border-radius:5px; }
+
+.no-orders { text-align:center; padding:50px; color:#666; }
+.no-orders h3 { margin-bottom:10px; }
+
+
+
+      
+  .footer {
+    background: #222;
+    color: #fff;
+    padding: 40px 5% 20px;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  .footer-top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+  }
+  .footer .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .footer .brand img {
+    width: 50px;
+    height: 50px;
+  }
+  .footer .brand h3 {
+    margin: 0;
+    color: #e60073;
+  }
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  .footer-links a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .footer-links a:hover {
+    color: #e60073;
+  }
+  .social-icons a {
+    display: inline-block;
+    margin-right: 10px;
+  }
+  .social-icons img {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.3s;
+  }
+  .social-icons img:hover {
+    transform: scale(1.1);
+  }
+  .footer-bottom {
+    text-align: center;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.7);
+  }
+
+  @media(max-width: 768px){
+    .footer-top {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .footer-links {
+      justify-content: center;
+    }
+    .social-icons {
+      justify-content: center;
+    }
+  }
+/* No Products Message */
+.no-products { grid-column:1/-1; text-align:center; padding:40px; color:#666; }
+
+/* Stock Status */
+.stock-status { margin:5px 15px; font-size:12px; }
+.stock-in { color:#28a745; }
+.stock-low { color:#ffc107; }
+.stock-out { color:#dc3545; }
+
+/* Responsive */
+@media(max-width:768px){ 
+    nav { flex-direction:column; gap:10px; } 
+    .footer-top { flex-direction: column; align-items: center; text-align: center; } 
+    .footer-links { justify-content: center; } 
+    .social-icons { justify-content: center; }
+    .products { grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">GlowCare</div>
+  <nav>
+    <a href="/">Home</a>
+    
+    <!-- Products Dropdown -->
+    <div class="dropdown">
+      <a href="#">Products ▾</a>
+      <div class="dropdown-content">
+        <a href="/skin/">Skin Care</a>
+        <a href="/hair/">Hair Care</a>
+        <a href="/makeup/">Makeup</a>
+      </div>
+    </div>
+    
+    <a href="/orders/">Orders</a>
+    {% if user.is_authenticated %}
+      <a href="/logout/">Logout ({{ user.first_name }})</a>
+    {% else %}
+      <a href="/login/">Login</a>
+    {% endif %}
+  </nav>
+</header>
+
+<div class="orders-container">
+  <div class="orders-header">
+    <h1>Your Orders</h1>
+    <p>Track your order status and history</p>
+  </div>
+
+  {% if orders_with_items %}
+    {% for order_data in orders_with_items %}
+    {% with order=order_data.order items=order_data.items %}
+    <div class="order-card">
+      <div class="order-header">
+        <div class="order-id">Order #{{ order.id }}</div>
+        <div class="order-date">{{ order.created_at|date:"M d, Y h:i A" }}</div>
+      </div>
+      
+      <div class="order-details">
+        <div>
+          <strong>Status:</strong><br>
+          <span class="order-status status-{{ order.status }}">
+            {% if order.status == 'pending' %}
+              ⏳ Pending
+            {% elif order.status == 'confirmed' %}
+              ✅ Confirmed  
+            {% elif order.status == 'shipped' %}
+              🚚 Shipped
+            {% elif order.status == 'delivered' %}
+              📦 Delivered
+            {% elif order.status == 'cancelled' %}
+              ❌ Cancelled
+            {% else %}
+              {{ order.status|title }}
+            {% endif %}
+          </span>
+        </div>
+        <div>
+          <strong>Total Amount:</strong><br>
+          ${{ order.total_amount }}
+        </div>
+      </div>
+      
+      <div class="order-items">
+        <strong>Items ({{ items|length }}):</strong>
+        {% for item in items %}
+        <div class="order-item">
+          <span>{{ item.product.name }} x {{ item.quantity }}</span>
+          <span>${{ item.price }} = ${{ item.total_price }}</span>
+        </div>
+        {% endfor %}
+      </div>
+      
+      <div class="order-total">
+        Total: ${{ order.total_amount }}
+      </div>
+      
+      <div class="order-address">
+        <strong>Delivery Address:</strong><br>
+        {{ order.delivery_address }}
+        {% if order.phone_number %}
+          <br><strong>Phone:</strong> {{ order.phone_number }}
+        {% endif %}
+      </div>
+    </div>
+    {% endwith %}
+    {% endfor %}
+  {% else %}
+    <div class="no-orders">
+      <h3>No orders yet</h3>
+      <p>Complete a checkout to see your orders here!</p>
+      <a href="/skin/">
+        <button style="background:#e60073; color:white; padding:10px 20px; border:none; border-radius:5px; cursor:pointer; margin-top:15px;">
+          Start Shopping
+        </button>
+      </a>
+    </div>
+  {% endif %}
+</div>
+
+<footer class="footer">
+  <div class="footer-top">
+    <div class="brand">
+      <div style="width:50px;height:50px;background:#9370DB;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:bold;">GC</div>
+      <h3>GlowCare</h3>
+    </div>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/hair/">Hair</a>
+      <a href="/skin/">Skin</a>
+      <a href="/makeup/">Makeup</a>
+      <a href="/orders/">Orders</a>
+      <a href="/login/">Login</a>
+      <a href="/contact/">Contact</a>
+    </div>
+    <div class="social-icons">
+      <a href="#"><img src="{% static 'shop/images/fb.jpg' %}" alt="Facebook" onerror="this.style.display='none'"></a>
+      <a href="#"><img src="{% static 'shop/images/in.jpg' %}" alt="Instagram" onerror="this.style.display='none'"></a>
+      <a href="#"><img src="{% static 'shop/images/go.jpg' %}" alt="Google" onerror="this.style.display='none'"></a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 GlowCare - All Rights Reserved</p>
+  </div>
+</footer>
+
+</body>
+</html>
