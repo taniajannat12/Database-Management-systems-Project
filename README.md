@@ -1,4 +1,4 @@
-# MyGlowCare - E-commerce Platform for Skin & Hair Care 🧴✨
+# MyGlowCare - E-commerce Platform for Skin , Hair Care & MakeUp🧴✨
 
 **MyGlowCare** is a robust e-commerce web application built using **Django**. It is designed to help users browse, filter, and purchase skincare and haircareand makeup  products based on their specific needs. This project was developed as part of the **Database Management Systems** course (4th Semester).
 
